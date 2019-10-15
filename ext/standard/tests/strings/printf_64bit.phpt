@@ -492,7 +492,7 @@ Array
  
  
 C
-½
+ï¿½
 c
 
 *** Output for scientific type ***
