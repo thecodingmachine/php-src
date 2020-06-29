@@ -29,6 +29,7 @@
 #include <stddef.h>
 #include <fcntl.h>
 #include "php_streams_int.h"
+#include "Zend/zend_exceptions.h"
 
 /* {{{ resource and registration code */
 /* Global wrapper hash, copied to FG(stream_wrappers) on registration of volatile wrapper */
@@ -210,8 +211,18 @@ void php_stream_display_wrapper_errors(php_stream_wrapper *wrapper, const char *
 		msg = "no suitable wrapper could be found";
 	}
 
-	php_strip_url_passwd(tmp);
-	php_error_docref1(NULL, tmp, E_WARNING, "%s: %s", caption, msg);
+	/* To handle throw_on_error declare statement */
+	zend_execute_data *ex = EG(current_execute_data);
+	/* Find first non internal execute_data */
+	while (ex && (!ex->func || !ZEND_USER_CODE(ex->func->type))) {
+		ex = ex->prev_execute_data;
+	}
+	if ((ex->func->common.fn_flags & ZEND_ACC_THROW_WARNING) != 0) {
+		zend_throw_exception_ex(zend_ce_exception, E_WARNING, "%s: %s",  caption, msg);
+	} else {
+		php_strip_url_passwd(tmp);
+		php_error_docref1(NULL, tmp, E_WARNING, "%s: %s", caption, msg);
+	}
 	efree(tmp);
 	if (free_msg) {
 		efree(msg);

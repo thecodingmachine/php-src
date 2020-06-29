@@ -287,7 +287,7 @@ typedef struct _zend_oparray_context {
 /* Whether this class was used in its unlinked state.     |     |     |     */
 #define ZEND_ACC_HAS_UNLINKED_USES       (1 << 23) /*  X  |     |     |     */
 /*                                                        |     |     |     */
-/* Function Flags (unused: 17, 23, 26, 29)                |     |     |     */
+/* Function Flags (unused: 23, 26, 29)                    |     |     |     */
 /* ==============                                         |     |     |     */
 /*                                                        |     |     |     */
 /* deprecation flag                                       |     |     |     */
@@ -308,6 +308,8 @@ typedef struct _zend_oparray_context {
 /* "main" op_array with                                   |     |     |     */
 /* ZEND_DECLARE_CLASS_DELAYED opcodes                     |     |     |     */
 #define ZEND_ACC_EARLY_BINDING           (1 << 16) /*     |  X  |     |     */
+/* op_array uses throw_on_error mode                      |     |     |     */
+#define ZEND_ACC_THROW_WARNING           (1U << 17) /*    |  X  |     |     */
 /*                                                        |     |     |     */
 /* call through user function trampoline. e.g.            |     |     |     */
 /* __call, __callstatic                                   |     |     |     */

@@ -1305,6 +1305,24 @@ static ZEND_COLD void zend_error_impl(
 	zend_stack delayed_oplines_stack;
 	int type = orig_type & E_ALL;
 
+	/* Promote E_WARNING to exception when throw_on_error declare is enabled */
+	if (orig_type == E_WARNING && EG(current_execute_data)) {
+		zend_execute_data *ex = EG(current_execute_data);
+		/* Find first non internal execute_data */
+		while (ex && (!ex->func || !ZEND_USER_CODE(ex->func->type))) {
+			ex = ex->prev_execute_data;
+		}
+		if (ex->func == NULL) {
+			goto normal;
+		}
+		if ((ex->func->common.fn_flags & ZEND_ACC_THROW_WARNING) != 0) {
+			zend_throw_exception(NULL, ZSTR_VAL(message), E_WARNING);
+			zend_string_release(message);
+			return;
+		}
+	}
+	normal:
+
 	/* Report about uncaught exception in case of fatal errors */
 	if (EG(exception)) {
 		zend_execute_data *ex;
