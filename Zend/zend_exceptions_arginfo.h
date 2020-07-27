@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 7eb20393f4ca314324d9813983124f724189ce8a */
+ * Stub hash: 7ced06621bcef27db8f911c656ac8b1c4b7b8cf3 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Throwable_getMessage, 0, 0, IS_STRING, 0)
 ZEND_END_ARG_INFO()
@@ -177,5 +177,10 @@ static const zend_function_entry class_ArithmeticError_methods[] = {
 
 
 static const zend_function_entry class_DivisionByZeroError_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_IO_methods[] = {
 	ZEND_FE_END
 };

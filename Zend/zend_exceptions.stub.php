@@ -119,3 +119,5 @@ class ArithmeticError extends Error
 class DivisionByZeroError extends ArithmeticError
 {
 }
+
+interface IO extends Throwable {}
