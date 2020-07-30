@@ -13,7 +13,7 @@ try {
 --EXPECTF--
 object(Exception)#1 (7) {
   ["message":protected]=>
-  string(82) "file_get_contents(not_found.txt): Failed to open stream: No such file or directory"
+  string(48) "Failed to open stream: No such file or directory"
   ["string":"Exception":private]=>
   string(0) ""
   ["code":protected]=>
