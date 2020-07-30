@@ -5,6 +5,10 @@ Test chroot() function error conditions with throw on error declare enabled - No
 if (substr(PHP_OS, 0, 3) == 'WIN') {
     die('skip.. Not valid for Windows');
 }
+
+if (!function_exists('chroot')) {
+    die('skip.. chroot() not defined in this build');
+}
 ?>
 --FILE--
 <?php
